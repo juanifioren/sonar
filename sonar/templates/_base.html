@@ -1,0 +1,80 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>{% block pagetitle %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
+    <script src="{% static 'js/tailwind.3.2.1.js' %}"></script>
+
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter var', 'ui-sans-serif', 'system-ui'],
+                }
+            }
+        }
+    }
+    </script>
+
+    {% block styles %}{% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-teal-600">
+        <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
+            <div class="flex w-full items-center justify-between border-b border-teal-500 py-6 lg:border-none">
+                <div class="flex items-center">
+                    <a href="#">
+                        <span class="sr-only">Your Company</span>
+                        <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="">
+                    </a>
+                    <div class="ml-10 hidden space-x-8 lg:block">
+                        <a href="#" class="text-base font-medium text-white hover:text-teal-50">Solutions</a>
+
+                        <a href="#" class="text-base font-medium text-white hover:text-teal-50">Pricing</a>
+
+                        <a href="#" class="text-base font-medium text-white hover:text-teal-50">Docs</a>
+
+                        <a href="#" class="text-base font-medium text-white hover:text-teal-50">Company</a>
+                    </div>
+                </div>
+                <div class="ml-10 space-x-4">
+                    {% if not request.user.is_authenticated %}
+                    <a href="#" class="inline-block rounded-md border border-transparent bg-white py-2 px-4 text-base font-medium text-teal-600 hover:bg-teal-50">Login</a>
+                    {% else %}
+                    <span class="text-base font-medium text-white hover:text-teal-50 cursor-default">Login as {{ request.user.email }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center space-x-6 py-4 lg:hidden">
+                <a href="#" class="text-base font-medium text-white hover:text-teal-50">Solutions</a>
+
+                <a href="#" class="text-base font-medium text-white hover:text-teal-50">Pricing</a>
+
+                <a href="#" class="text-base font-medium text-white hover:text-teal-50">Docs</a>
+
+                <a href="#" class="text-base font-medium text-white hover:text-teal-50">Company</a>
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
