@@ -11,3 +11,9 @@ Run tests.
 ```
 $ docker-compose -f docker-compose.yaml run --rm web python manage.py test
 ```
+
+## Things for v2
+
+Here I am going to leave a list of things that I was thinking to improve in a future version:
+
+- Add Pytest suite for testing and maybe use Factory-boy to generate data (for testing and for the initial data command).
