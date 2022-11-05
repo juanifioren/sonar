@@ -18,8 +18,8 @@ class Post(models.Model):
     class Meta:
         default_permissions = ()
         ordering = ['date_created', 'id']
-        verbose_name = _('Activity Log')
-        verbose_name_plural = _('Activity Logs')
+        verbose_name = _('Post')
+        verbose_name_plural = _('Posts')
 
     def __str__(self):
         return self.title
