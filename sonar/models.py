@@ -25,7 +25,7 @@ class Post(models.Model):
         return self.title
 
     def __repr__(self):
-        return '<Post {} {}>'.format(self.user.username, self.get_interaction_type_display())  # noqa
+        return '<Post {}>'.format(self.title)
 
     @property
     def slug(self):

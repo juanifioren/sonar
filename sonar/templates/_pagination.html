@@ -2,7 +2,7 @@
 
 {% if page_obj %}
 
-<nav class="my-12 border-t border-gray-200 px-4 flex items-center justify-between sm:px-0">
+<nav class="my-12 px-4 flex items-center justify-between sm:px-0">
    <div class="-mt-px w-0 flex-1 flex">
       <a{% if page_obj.has_previous %} id="previous-page" href="#"{% endif %} class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-500{% if page_obj.has_previous %} hover:text-gray-700 hover:border-gray-300{% endif %}">
          <!-- Heroicon name: solid/arrow-narrow-left -->
