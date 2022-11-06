@@ -6,10 +6,55 @@
 
 {% block content %}
 
-{% if posts %}
-{% for post in posts %}
-    <p>{{ post.title }}</p>
-{% endfor %}
-{% endif %}
+<div class="pt-16 pb-20 px-4 sm:px-6 lg:pt-20 lg:pb-28 lg:px-8">
+    <div class="relative max-w-5xl mx-auto">
+        <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <h1 class="text-3xl font-bold text-gray-900">Latest Posts</h1>
+            </div>
+        </div>
+        <div class="-mx-4 mt-10 ring-1 ring-gray-300 sm:-mx-6 md:mx-0 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+                <thead>
+                    <tr>
+                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Title</th>
+                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Posted</th>
+                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                    <tr>
+                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+                            <div class="flex items-center">
+                                <div class="h-10 w-10 flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full bg-gray-200" src="{{ post.image_src }}" alt="">
+                                </div>
+                                <div class="ml-4">
+                                    <div class="font-medium text-gray-900">{{ post.title }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">{{ post.date_created }}</td>
+                        <td class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium">
+                            <button type="button" class="relative top-[3px] inline-flex items-center rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                                </svg>
+                            </button>
+                            <button type="button" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">View</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include '_pagination.html' %}
+    </div>
+</div>
+
+
 
 {% endblock %}

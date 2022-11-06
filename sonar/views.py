@@ -13,9 +13,4 @@ class PostsView(ListView):
     template_name = 'posts.html'
 
     def get_queryset(self):
-        queryset = Post.objects.all()
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+        return Post.objects.order_by('-date_created', '-id').all()
