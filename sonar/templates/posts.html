@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+
+{% load i18n static %}
+
+{% block pagetitle %}{% trans 'Posts' %}{% endblock %}
+
+{% block content %}
+
+{% if posts %}
+{% for post in posts %}
+    <p>{{ post.title }}</p>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
