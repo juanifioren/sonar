@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.utils.timezone import now, timedelta
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
@@ -34,6 +35,21 @@ class PostDetailView(DetailView):
     model = Post
     context_object_name = 'post'
     template_name = 'post_detail.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+
+        # Create a view count log only every 3 hours, to prevent spamming.
+        three_hours_ago = now() - timedelta(hours=3)
+        query_kwargs = {
+            'post': post,
+            'user': request.user,
+            'interaction_type': ActivityLog.VIEW,
+        }
+        if not ActivityLog.objects.filter(
+            date_created__gte=three_hours_ago, **query_kwargs).exists():
+            ActivityLog.objects.create(**query_kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

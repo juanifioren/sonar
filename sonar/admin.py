@@ -26,6 +26,7 @@ class ActivityLogAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'post_short_title', 'interaction_type', 'date_created')
     list_filter = ('date_created',)
+    raw_id_fields = ('post', 'user')
     search_fields = ('post__title', 'user__username', 'user__email')
 
     def post_short_title(self, instance):
