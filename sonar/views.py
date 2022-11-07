@@ -1,12 +1,44 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Avg
 from django.http import JsonResponse
 from django.utils.timezone import now, timedelta
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 
-from sonar.models import ActivityLog, Post
+from sonar.models import ActivityLog, Post, User
+
+
+class DashboardView(TemplateView):
+
+    template_name = 'dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['total_posts'] = Post.objects.all().count()
+        context['total_users'] = User.objects.all().count()
+
+        top_posts_views = (
+            Post.objects
+            .filter(activity_logs__interaction_type=ActivityLog.VIEW)
+            .values('id')
+            .annotate(total_views=Count('id'))
+            .order_by('-total_views')[:5]
+        )
+        context['top_viewed_posts'] = [(Post.objects.get(id=e['id']), e['total_views']) for e in top_posts_views]
+
+        top_posts_likes = (
+            Post.objects
+            .filter(activity_logs__interaction_type=ActivityLog.LIKE)
+            .values('id')
+            .annotate(total_likes=Count('id'))
+            .order_by('-total_likes')[:5]
+        )
+        context['top_liked_posts'] = [(Post.objects.get(id=e['id']), e['total_likes']) for e in top_posts_likes]
+
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
