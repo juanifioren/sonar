@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 
 from sonar.models import ActivityLog, Post
 
@@ -11,7 +12,7 @@ from sonar.models import ActivityLog, Post
 class PostsView(ListView):
 
     context_object_name = 'posts'
-    paginate_by = 12
+    paginate_by = 15
     template_name = 'posts.html'
 
     def get_queryset(self):
@@ -19,10 +20,23 @@ class PostsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # For paginated posts, get those ids of which were liked by the user.
         context['posts_liked'] = list(self.object_list.filter(
             activity_logs__user=self.request.user,
             activity_logs__interaction_type=ActivityLog.LIKE)\
             .values_list('id', flat=True))
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class PostDetailView(DetailView):
+
+    model = Post
+    context_object_name = 'post'
+    template_name = 'post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
 
 

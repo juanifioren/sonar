@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
@@ -30,6 +31,10 @@ class Post(models.Model):
     @property
     def slug(self):
         return slugify(self.title)
+
+    @cached_property
+    def likes_count(self):
+        return self.activity_logs.filter(interaction_type=ActivityLog.LIKE).count()
 
 
 class ActivityLog(models.Model):
