@@ -6,6 +6,7 @@
 
 - Python 3.
 - Django 4.
+- Postgresql 11.
 - TailwindCSS, HTML5 and CSS3.
 - JQuery.
 - Docker and Docker compose.
