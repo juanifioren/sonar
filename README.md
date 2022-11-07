@@ -1,3 +1,7 @@
+# Sonar Technical Challenge
+
+![Screenshot 2022-11-07 at 00 22 52](https://user-images.githubusercontent.com/5168681/200219973-9c2b3c93-3767-4d01-88f8-f1092471c4da.png)
+
 ## Stack
 
 - Python 3.
